@@ -1,32 +1,39 @@
 #include <iostream>
-using namespace std;
+#include <stdlib.h>
+
 int main()
 {
-    int n, tmp;
-    cin >> n;
-    int *mass;
-    mass = new int[n];
-    for(int i = 1;i <= n;i++)
+    int temp;
+
+    int mas[15];
+
+    for(int i = 0; i < 15; i++)
     {
-        cin>>mass[i];
+        mas[i] = rand()%100;
     }
-    for(int i = 0;i <= n - 1;i++) // running along the length of the array
+
+    for(int i = 0; i < 15; i++)
     {
-        for(int j = 0;j <= n - 1 - i;j++) // comparing two bubbles and not counting the sorted ones
+        std::cout << mas[i] << " ";
+    }
+  std::cout << std::endl;
+
+    for (int i = 0; i < 14; i++)
+    {
+      for (int j = 0; j < 14-i; j++)
         {
-            if(mass[j] > mass[j + 1])
-            {
-                tmp = mass[j + 1];
-				mass[j + 1] = mass[j];
-				mass[j] = tmp;
-            }
-        }
+          if (mas[j]>mas[j+1])
+          {
+            temp = mas[j];
+            mas[j] = mas[j+1];
+            mas[j+1] = temp;
+          }
+        }  
     }
-    for(int i = 1;i <= n;i++)
+
+    for(int i = 0; i < 15; i++)
     {
-        cout << mass[i] << " ";
+        std::cout << mas[i] << " ";
     }
-    cout << endl;
-    delete mass;
-    return 0;
+  return 0;
 }
