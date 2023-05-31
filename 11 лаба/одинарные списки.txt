@@ -1,0 +1,149 @@
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* next;
+};
+
+void addNode(Node** head, int data)
+{
+    setlocale (LC_ALL, "RU");
+    Node* newNode = new Node; 
+    newNode->data = data;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void removeNode(Node** head, int position)
+{
+    Node* temp = *head; // node will be deleted
+    Node* prev = nullptr; 
+    if (position == 0)
+    {
+        *head = temp->next;
+        delete temp;
+        return;
+    }
+    for (int i = 0; temp != nullptr && i < position; i++)
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == nullptr)
+        return;
+    prev->next = temp->next;
+    delete temp;
+}
+
+void addKNodes(Node** head, int position, int K, int data)
+{
+    Node* temp = *head;
+    for (int i = 0; i < position && temp != nullptr; i++)
+    {
+        temp = temp->next;
+    }
+    if (temp == nullptr)
+        return;
+    for (int i = 0; i < K; i++)
+    {
+        Node* newNode = new Node;
+        newNode->data = data;
+        newNode->next = temp->next;
+        temp->next = newNode;
+        temp = temp->next;
+    }
+}
+
+void removeKNodes(Node** head, int position, int K)
+{
+    Node* temp = *head;
+    for (int i = 0; i < position && temp != nullptr; i++)
+    {
+        temp = temp->next;
+    }
+    if (temp == nullptr)
+        return;
+    for (int i = 0; i < K && temp->next != nullptr; i++)
+    {
+        Node* next = temp->next;
+        temp->next = next->next;
+        delete next;
+    }
+}
+
+Node* searchNode(Node* head, int data)
+{
+    Node* temp = head;
+    while (temp != nullptr)
+    {
+        if (temp->data == data)
+            return temp;
+        temp = temp->next;
+    }
+    return nullptr;
+}
+
+void printList(Node* head)
+{
+    Node* temp = head;
+    while (temp != nullptr)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << std::endl;
+}
+
+int main()
+{
+    Node* temp;
+    Node* head = nullptr;
+    int data;
+    cout << "¬ведите данные: ";
+    cin >> data;
+    addNode(&head, data);
+    cout << "¬ведите данные: ";
+    cin >> data;
+    addNode(&head, data);
+    cout << "¬ведите данные: ";
+    cin >> data;
+    addNode(&head, data);
+    cout << "¬ведите данные: ";
+    cin >> data;
+    addNode(&head, data);
+    cout << "¬ведите данные: ";
+    cin >> data;
+    addNode(&head, data);
+    printList(head);
+    int position;
+    cout << "¬ведите позицию, элемент которой будет удален: ";
+    cin >> position;
+    removeNode(&head, position);
+    printList(head);
+    int K, data1, position1;
+    cout << "¬ведите с какой позиции нужно добавить элемент(ы): ";
+    cin >> position1;
+    cout << "¬¬едите количество элементы, которые нужно добавить: ";
+    cin >> K;
+    cout << "¬ведите элемент, который нужно добавить: ";
+    cin >> data1;
+    addKNodes(&head, position1, K, data1);
+    printList(head);
+    int position2, K2;
+    cout << "¬ведите позицию, из которой нужно удалить элемент(ы): ";
+    cin >> position2;
+    cout << "¬ведите, сколько элементов нужно удалить: ";
+    cin >> K2;
+    removeKNodes(&head, position2, K2);
+    printList(head); 
+    cout << "¬ведите элемент, который хотите найти: ";
+    cin >> data1;
+    if (searchNode(head, data1) != nullptr)
+    {
+        cout << ""Ёлемент найден!" << std::endl;
+    }
+    else
+        cout << "Ёлемент не найден." << std::endl;
+}
