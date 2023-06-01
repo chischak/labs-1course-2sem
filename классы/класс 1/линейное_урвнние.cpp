@@ -1,5 +1,4 @@
 #include <iostream>
-#include "linear_equation.h"
 using namespace std;
 
 void linear_equation::Read()
